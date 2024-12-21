@@ -643,6 +643,39 @@ require('lazy').setup({
         },
       }
 
+      -- Modify the LSP setup for Pyright to include your virtual environment
+      require('lspconfig').pyright.setup {
+        on_attach = function(client, bufnr)
+          -- Your on_attach function here (if needed)
+        end,
+        settings = {
+          python = {
+            pythonPath = vim.fn.exepath 'python', -- Default: Python from PATH
+            analysis = {
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+            },
+          },
+        },
+      }
+
+      -- If you want to set a specific Python interpreter, you can do it like this:
+      vim.api.nvim_create_autocmd('BufEnter', {
+        pattern = '*.py',
+        callback = function()
+          local venv_path = vim.fn.getenv 'VIRTUAL_ENV'
+          if venv_path and vim.fn.filereadable(venv_path .. '/bin/python') == 1 then
+            require('lspconfig').pyright.setup {
+              settings = {
+                python = {
+                  pythonPath = venv_path .. '/bin/python', -- Set the virtualenv Python
+                },
+              },
+            }
+          end
+        end,
+      })
+
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
       --  other tools, you can run
