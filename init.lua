@@ -649,17 +649,31 @@ require('lazy').setup({
         },
       }
 
+      require('lspconfig').ruff.setup {
+        init_options = {
+          settings = {
+            -- Ruff language server settings go here
+          },
+        },
+      }
+
       -- Modify the LSP setup for Pyright to include your virtual environment
       require('lspconfig').pyright.setup {
         on_attach = function(client, bufnr)
           -- Your on_attach function here (if needed)
         end,
         settings = {
+          pyright = {
+            -- Using Ruff's import organizer
+            disableOrganizeImports = true,
+          },
           python = {
             pythonPath = vim.fn.exepath 'python', -- Default: Python from PATH
             analysis = {
               autoSearchPaths = true,
               useLibraryCodeForTypes = true,
+              -- Ignore all files for analysis to exclusively use Ruff for linting
+              ignore = { '*' },
             },
           },
         },
