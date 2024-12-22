@@ -94,11 +94,11 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+-- Disable arrow keys in normal mode
+vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
+vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
+vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
+vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -114,7 +114,7 @@ vim.keymap.set('n', '<leader>tn', ':tabnew<CR>', { desc = 'New tab' })
 vim.keymap.set('n', '<leader>tx', ':tabclose<CR>', { desc = 'Close tab' })
 vim.keymap.set('n', '<leader>to', ':tabonly<CR>', { desc = 'Close all other tabs' })
 
--- Keybinds diagnostics
+-- Keybinds for problems
 vim.api.nvim_set_keymap(
   'n',
   '<leader>pb',
@@ -125,6 +125,11 @@ vim.api.nvim_set_keymap('n', '<leader>pw', ':Telescope diagnostics<CR>', { norem
 vim.api.nvim_set_keymap('n', '<leader>pn', ':lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true, desc = 'Jump to the next problem' })
 vim.api.nvim_set_keymap('n', '<leader>pN', ':lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true, desc = 'Jump to the previous problem' })
 vim.api.nvim_set_keymap('n', '<leader>pf', ':lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true, desc = 'Show [P]roblem [F]ixes' })
+
+-- Keybinds for vim-tree
+vim.api.nvim_set_keymap('n', '<leader>fo', ':NvimTreeToggle<CR>', { noremap = true, silent = true, desc = '[F]ile view [O]pen' })
+vim.api.nvim_set_keymap('n', '<leader>fr', ':NvimTreeRefresh<CR>', { noremap = true, silent = true, desc = '[F]ile view [R]efresh' })
+vim.api.nvim_set_keymap('n', '<leader>ff', ':NvimTreeFindFile<CR>', { noremap = true, silent = true, desc = '[F]ile view [F]ind' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
