@@ -131,6 +131,18 @@ vim.api.nvim_set_keymap('n', '<leader>fo', ':NvimTreeToggle<CR>', { noremap = tr
 vim.api.nvim_set_keymap('n', '<leader>fr', ':NvimTreeRefresh<CR>', { noremap = true, silent = true, desc = '[F]ile view [R]efresh' })
 vim.api.nvim_set_keymap('n', '<leader>ff', ':NvimTreeFindFile<CR>', { noremap = true, silent = true, desc = '[F]ile view [F]ind' })
 
+-- Keybinds for debugger
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>db',
+  ":lua require'dap'.toggle_breakpoint()<CR>",
+  { noremap = true, silent = true, desc = '[D]ebugger: toggle [B]reakpoint' }
+)
+vim.api.nvim_set_keymap('n', '<leader>dc', ":lua require'dap'.continue()<CR>", { noremap = true, silent = true, desc = '[D]ebugger: [C]ontinue' })
+vim.api.nvim_set_keymap('n', '<leader>dso', ":lua require'dap'.step_over()<CR>", { noremap = true, silent = true, desc = '[D]ebugger: [S]tep [O]ver' })
+vim.api.nvim_set_keymap('n', '<leader>dsi', ":lua require'dap'.step_into()<CR>", { noremap = true, silent = true, desc = '[D]ebugger: [S]tep [I]nto' })
+vim.api.nvim_set_keymap('n', '<leader>dui', ":lua require'dapui'.toggle()<CR>", { noremap = true, silent = true, desc = '[D]ebuger: [U][I]' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -181,6 +193,29 @@ require('lazy').setup({
       hint_enable = false,
       handler_opts = { border = 'rounded' },
     },
+  },
+  -- Debug
+  {
+    'mfussenegger/nvim-dap-python',
+    dependencies = { 'mfussenegger/nvim-dap' },
+    event = 'VeryLazy',
+  },
+  {
+    'rcarriga/nvim-dap-ui',
+    dependencies = {
+      'nvim-neotest/nvim-nio',
+      'mfussenegger/nvim-dap',
+      'jonboh/nvim-dap-rr',
+    },
+    event = 'VeryLazy',
+  },
+  {
+    'theHamsta/nvim-dap-virtual-text',
+    dependencies = {
+      'mfussenegger/nvim-dap',
+      'nvim-treesitter/nvim-treesitter',
+    },
+    event = 'VeryLazy',
   },
   {
     'nvim-tree/nvim-tree.lua',
@@ -1028,3 +1063,6 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+-- Debug
+vim.cmd [[ source ~/.config/nvim/lua/debug.lua ]]
