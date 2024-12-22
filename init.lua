@@ -195,6 +195,18 @@ vim.keymap.set('n', '<leader>tn', ':tabnew<CR>', { desc = 'New tab' })
 vim.keymap.set('n', '<leader>tx', ':tabclose<CR>', { desc = 'Close tab' })
 vim.keymap.set('n', '<leader>to', ':tabonly<CR>', { desc = 'Close all other tabs' })
 
+-- Keybinds diagnostics
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>pb',
+  ':Telescope diagnostics bufnr=0<CR>',
+  { noremap = true, silent = true, desc = 'Show [P]roblems in current [B]uffer' }
+)
+vim.api.nvim_set_keymap('n', '<leader>pw', ':Telescope diagnostics<CR>', { noremap = true, silent = true, desc = 'Show [P]roblems in [W]orkspace' })
+vim.api.nvim_set_keymap('n', '<leader>pn', ':lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true, desc = 'Jump to the next problem' })
+vim.api.nvim_set_keymap('n', '<leader>pN', ':lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true, desc = 'Jump to the previous problem' })
+vim.api.nvim_set_keymap('n', '<leader>pf', ':lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true, desc = 'Show [P]roblem [F]ixes' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
